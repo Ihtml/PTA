@@ -1,2 +1,2 @@
-# PTA
-PTA解题记录
+# PAT
+PAT解题记录
