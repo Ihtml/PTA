@@ -1,22 +1,21 @@
-#include <cmath>
 #include <iostream>
 using namespace std;
 int main() {
-  int n, b, s, g;
-  string str;
+  int n, i = 0;
   cin >> n;
-  b = floor(n / 100);
-  s = floor((n - b * 100) / 10);
-  g = n - 100 * b - 10 * s;
-  for (int i = 0; i < b; i++) {
-    str += "B";
+  int m[3] = {0};
+  while (n != 0) {
+    m[i++] = n % 10;
+    n = n / 10;
   }
-  for (int i = 0; i < s; i++) {
-    str += "S";
+  for (int i = 0; i < m[2]; i++) {
+    cout << "B";
   }
-  cout << str;
-  for (int i = 1; i <= g; i++) {
-    cout << i;
+  for (int i = 0; i < m[1]; i++) {
+    cout << "S";
+  }
+  for (int i = 0; i < m[0]; i++) {
+    cout << i + 1;
   }
   return 0;
 }
