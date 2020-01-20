@@ -1,38 +1,28 @@
 #include <cmath>
 #include <iostream>
 using namespace std;
+bool isPrime(int n) {
+  if (n % 6 != 1 && n % 6 != 5) {
+    return false;
+  }
+  for (int i = 5; i * i <= n; i += 6) {
+    if (n % i == 0 || n % (i + 2) == 0) {
+      return false;
+    }
+  }
+  return true;
+}
 int main() {
-  int n;
+  int n, ctn = 0, tmp = 3;
   cin >> n;
-  if (n < 5) {
-    cout << 0;
-    return 0;
-  }
-  if (n == 5) {
-    cout << 1;
-    return 0;
-  }
-  int count = 1, p = 5, s;
-  for (int i = 6; i <= n; i++) {
-    bool flag = true;
-    if (i % 6 != 1 && i % 6 != 5) {
-      flag = false;
-      continue;
-    }
-    s = sqrt(i);
-    for (int j = 5; j <= s; j += 6) {
-      if (i % j == 0 || i % (j + 2) == 0) {
-        flag = false;
-        break;
+  for (int i = 5; i <= n; i++) {
+    if (isPrime(i)) {
+      if (i - tmp == 2) {
+        ctn++;
       }
-    }
-    if (flag == true) {
-      if (i - p == 2) {
-        count++;
-      }
-      p = i;
+      tmp = i;
     }
   }
-  cout << count;
+  cout << ctn;
   return 0;
 }
