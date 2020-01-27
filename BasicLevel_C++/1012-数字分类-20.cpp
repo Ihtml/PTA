@@ -5,20 +5,18 @@ int main() {
   int n, num, A1 = 0, A2 = 0, A5 = 0;
   double A4 = 0;
   cin >> n;
-  vector<vector<int> > v(5);
+  vector<int> v[5];
   for (int i = 0; i < n; i++) {
     cin >> num;
     v[num % 5].push_back(num);
   }
-      bool flag = true;
   for (int i = 0; i < 5; i++) {
     for (int j = 0; j < v[i].size(); j++) {
       if (i == 0 && v[i][j] % 2 == 0) {
         A1 += v[i][j];
       }
       if (i == 1) {
-        A2 = flag ? A2 + v[i][j] : A2 - v[i][j];
-        flag = flag ? false : true;
+        A2 = j%2 == 0 ? A2 + v[i][j] : A2 - v[i][j];
       }
       if (i == 3) {
         A4 += v[i][j];
@@ -33,22 +31,22 @@ int main() {
       printf(" ");
     }
     if (v[i].size() == 0 || (i == 0 && A1 == 0)) {
-      printf("N"); 
+      printf("N");
       continue;
     }
     if (i == 0) {
-        printf("%d", A1);
+      printf("%d", A1);
     }
     if (i == 1) {
       printf("%d", A2);
     }
     if (i == 2) {
-      printf("%d", v[2].size());
+      printf("%lu", v[2].size());
     }
     if (i == 3) {
-      printf("%.1f", A4 / (v[3].size()) );
+      printf("%.1f", A4 / (v[3].size()));
     }
-    if (i == 4 ) {
+    if (i == 4) {
       printf("%d", A5);
     }
   }
