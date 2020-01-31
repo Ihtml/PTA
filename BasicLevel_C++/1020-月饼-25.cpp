@@ -2,41 +2,35 @@
 #include <iostream>
 #include <vector>
 struct bin {
-  float num;
-  float p;
+  float num, p, u;
 };
 bool cmp(bin a, bin b) {
-  return (a.p / a.num) > (b.p / b.num);
+  return a.u > b.u;
 }
 using namespace std;
 int main() {
   int n, sum;
-  float p, num;
   cin >> n >> sum;
   vector<bin> v(n);
   for (int i = 0; i < n; i++) {
-    cin >> num;
-    v[i].num = num;
+    scanf("%f", &v[i].num);
   }
   for (int i = 0; i < n; i++) {
-    cin >> p;
-    v[i].p = p;
+    scanf("%f", &v[i].p);
+  }
+  for (int i = 0; i < n; i++) {
+    v[i].u = v[i].p / v[i].num;
   }
   sort(v.begin(), v.end(), cmp);
-  float tn = 0.0;
-  float tp = 0.0;
+  float tp = 0;
   for (int i = 0; i < n; i++) {
-    tn += v[i].num;
-    if (tn < sum) {
+    if (v[i].num < sum) {
       tp += v[i].p;
-    } else if (tn == sum) {
-      tp += v[i].p;
-      break;
-    } else if (tn > sum) {
-      float p = (v[i].p / v[i].num);
-      tp += v[i].p - (tn - sum) * p;
+    } else {
+      tp += v[i].u * sum;
       break;
     }
+    sum = sum - v[i].num;
   }
   printf("%.2f", tp);
   return 0;
