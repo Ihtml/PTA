@@ -1,41 +1,37 @@
 #include <iostream>
 using namespace std;
 int main() {
-  int n, l = 1;
+  int n, l = 0;
   char s;
   cin >> n >> s;
-  int sum = 1;
-  for (int i = 1; sum < n; i += 2) {
-    if (sum + (i + 2) * 2 > n) {
+  for (int i = 0; i < n; i++) {
+    if ((2 * i + 4) * i + 1 > n) {
+      l = i - 1;
       break;
     }
-    l += 2;
-    sum += (i + 2) * 2;
   }
-  int h = l / 2;
-  int max = 1 + h * 2;
-  for (int i = h; i >= 1; i--) {
-    for (int k = h - i; k >= 1; k--) {
+  for (int i = l; i >= 1; i--) {
+    for (int j = 0; j < l - i; j++) {
       cout << " ";
     }
-    for (int j = 2 * i + 1; j >= 1; j--) {
+    for (int k = 0; k < 2 * i + 1; k++) {
       cout << s;
     }
     cout << endl;
   }
-  for (int i = 0; i < h; i++) {
+  for (int i = 0; i < l; i++) {
     cout << " ";
   }
   cout << s << endl;
-  for (int i = 1; i <= h; i++) {
-    for (int k = h - i; k >= 1; k--) {
+  for (int i = 1; i <= l; i++) {
+    for (int j = 0; j < l - i; j++) {
       cout << " ";
     }
-    for (int j = 2 * i + 1; j >= 1; j--) {
+    for (int k = 0; k < 2 * i + 1; k++) {
       cout << s;
     }
     cout << endl;
   }
-  cout << n - sum;
+  cout << n - (2 * l + 4) * l - 1;
   return 0;
 }
