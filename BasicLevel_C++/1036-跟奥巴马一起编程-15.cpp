@@ -12,14 +12,11 @@ int main() {
       }
       if(i==0) cout << endl;
     }else {
-      for (int j = 0; j < n; j++) {
-        if (j == 0 || j == n - 1) {
-          cout << c;
-        } else {
+      cout << c;
+      for (int j = 0; j < n-2; j++) {
           cout << " ";
-        }
       }
-      cout << endl;
+      cout << c << endl;
     }
   }
   return 0;
