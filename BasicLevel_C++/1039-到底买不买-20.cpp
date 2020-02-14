@@ -1,31 +1,24 @@
 #include <iostream>
-#include <map>
 using namespace std;
 int main() {
-  string sold, want;
-  map<char, int> sm, wm;
-  bool flag = true;
-  cin >> sold >> want;
-  for (int i = 0; i < want.length(); i++) {
-    wm[want[i]]++;
+  int arr[256] = {0};
+  int result = 0;
+  string a, b;
+  cin >> a >> b;
+  for (int i = 0; i < a.length(); i++) {
+    arr[a[i]]++;
   }
-  for (int i = 0; i < sold.length(); i++) {
-    sm[sold[i]]++;
-  }
-  int ctn = 0;
-  for (auto it = wm.begin(); it != wm.end(); it++) {
-    if (sm[it->first] && sm[it->first] < it->second) {
-      flag = false;
-      ctn += (it->second) - sm[it->first];
-    } else if (!sm[it->first]) {
-      flag = false;
-      ctn += it->second;
+  for (int i = 0; i < b.length(); i++) {
+    if (arr[b[i]] > 0) {
+      arr[b[i]]--;
+    } else {
+      result++;
     }
   }
-  if (flag) {
-    cout << "Yes " << sold.length() - want.length();
+  if (result > 0) {
+    cout << "No " << result;
   } else {
-    cout << "No " << ctn;
+    cout << "Yes " << a.length() - b.length();
   }
   return 0;
 }
