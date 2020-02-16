@@ -1,25 +1,25 @@
+#include <cctype>
 #include <iostream>
-#include <map>
 using namespace std;
 int main() {
-  string s;
-  char maxs;
-  map<char, int> m;
-  int max = -1;
+  string s, maxs;
+  int max, t = 0, arr[26] = {0};
   getline(cin, s);
   for (int i = 0; i < s.length(); i++) {
-    if (('a' <= s[i] && s[i] <= 'z') || ('A' <= s[i] && s[i] <= 'Z')) {
-      m[tolower(s[i])]++;
+    s[i] = tolower(s[i]);
+  }
+  for (int i = 0; i < s.length(); i++) {
+    if (islower(s[i])) {
+      arr[s[i] - 'a']++;
     }
   }
-  for (auto it = m.begin(); it != m.end(); it++) {
-    if (it->second > max) {
-      max = it->second;
-      maxs = it->first;
-    }
-    if (it->second == max && it->first < maxs) {
-      maxs = it->first;
+  max = arr[0];
+  for (int i = 1; i < 26; i++) {
+    if (arr[i] > max) {
+      max = arr[i];
+      t = i;
     }
   }
-  cout << maxs << " " << max;
+  printf("%c %d", 'a' + t, max);
+  return 0;
 }
