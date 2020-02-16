@@ -1,27 +1,24 @@
 #include <iostream>
-#include <string>
-#include <vector>
 using namespace std;
 int main() {
-  string s, S = "PATest";
-  vector<int> v(6);
-  cin >> s;
-  for (int i = 0; i < s.length(); i++) {
-    if (S.find(s[i]) != string::npos) {
-      v[S.find(s[i])]++;
-    }
+  int c, arr[128] = {0};
+  while ((c = cin.get()) != EOF) {
+    arr[c]++;
   }
-  int flag = 6;
-  while (flag) {
-    flag = 6;
-    for (int i = 0; i < 6; i++) {
-      if (v[i] != 0) {
-        cout << S[i];
-        v[i]--;
-      } else {
-        flag--;
-      }
-    }
+  while (arr['P'] > 0 || arr['A'] > 0 || arr['T'] > 0 || arr['e'] > 0 ||
+         arr['s'] > 0 || arr['t'] > 0) {
+    if (arr['P']-- > 0)
+      cout << 'P';
+    if (arr['A']-- > 0)
+      cout << 'A';
+    if (arr['T']-- > 0)
+      cout << 'T';
+    if (arr['e']-- > 0)
+      cout << 'e';
+    if (arr['s']-- > 0)
+      cout << 's';
+    if (arr['t']-- > 0)
+      cout << 't';
   }
   return 0;
 }
