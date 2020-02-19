@@ -7,18 +7,15 @@ bool cmp(int a, int b) {
   return a > b;
 }
 int main() {
-  int N, t, m, n;
+  int N, m, n;
   scanf("%d", &N);
   vector<int> a(N);
   for (int i = 0; i < N; i++) {
-    scanf("%d", &t);
-    a[i] = t;
+    scanf("%d", &a[i]);
   }
   sort(a.begin(), a.end(), cmp);
-  n = sqrt((double)N);
-  for (int i = n; i >= 1; i--) {
-    if (N % i == 0) {
-      n = i;
+  for (n = sqrt((double)N); n >= 1; n--) {
+    if (N % n == 0) {
       m = N / n;
       break;
     }
