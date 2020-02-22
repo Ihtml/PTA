@@ -14,17 +14,9 @@ int main() {
       }
     }
     if (q > n / 2) {
-      if (n > D) {
-        ctnb++;
-      }else
-      {
-        ctna++;
-      }
+      n > D ? ctnb++ : ctna++;
     }
   }
-  printf("%.1f", ctna * 100 / N);
-  printf("%c ", '%');
-  printf("%.1f", ctnb * 100 / N);
-  printf("%c", '%');
+  printf("%.1f%% %.1f%%", ctna * 100 / N, ctnb * 100 / N);
   return 0;
 }
