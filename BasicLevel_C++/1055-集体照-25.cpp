@@ -7,24 +7,15 @@ struct obj {
   int high;
 };
 bool cmp(obj a, obj b) {
-  if (a.high > b.high) {
-    return true;
-  } else if (a.high == b.high && a.name < b.name) {
-    return true;
-  }
-  return false;
+  return a.high == b.high ? a.name < b.name : a.high > b.high;
 }
 int main() {
   int N, K, m;
   cin >> N >> K;
   vector<obj> v(N), temp;
-  vector<vector<obj> > res;
-  string name;
-  int high;
   for (int i = 0; i < N; i++) {
-    cin >> name >> high;
-    v[i].name = name;
-    v[i].high = high;
+    cin >> v[i].name;
+    cin >> v[i].high;
   }
   sort(v.begin(), v.end(), cmp);
   m = N / K;
