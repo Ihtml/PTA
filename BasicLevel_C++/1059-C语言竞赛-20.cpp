@@ -3,28 +3,18 @@
 using namespace std;
 bool isPrime(int a) {
   for (int i = 2; i * i <= a; i++) {
-    if (a % i == 0) {
-      return false;
-    }
+    if (a % i == 0)  return false;
   }
   return true;
 }
 int main() {
   int N, K, t;
-  string s;
   cin >> N;
   char c[10001];
   for (int i = 0; i < N; i++) {
     scanf("%d", &t);
-    if (i == 0) {
-      c[t] = 'A';
-    } else {
-      if (isPrime(i + 1)) {
-        c[t] = 'B';
-      } else {
-        c[t] = 'C';
-      }
-    }
+    c[t] = isPrime(i + 1) ? 'B' : 'C';
+    if (i == 0)  c[t] = 'A';
   }
   cin >> K;
   for (int i = 0; i < K; i++) {
