@@ -1,10 +1,10 @@
 #include <iostream>
-#include <vector>
+#include <set>
 using namespace std;
 int main() {
-  int n, ctn = 0;
+  int n;
   string s;
-  int arr[40] = {0};
+  set<int> st;
   cin >> n;
   for (int i = 0; i < n; i++) {
     cin >> s;
@@ -12,21 +12,14 @@ int main() {
     for (int j = 0; j < s.length(); j++) {
       sum += s[j] - '0';
     }
-    arr[sum]++;
+    st.insert(sum);
   }
-  vector<int> v;
-  for (int i = 0; i < 40; i++) {
-    if (arr[i] > 0) {
-      v.push_back(i);
-      ctn++;
-    }
-  }
-  cout << ctn << endl;
-  for (int i = 0; i < v.size(); i++) {
-    if (i != 0) {
+  cout << st.size() << endl;
+  for (auto it = st.begin(); it != st.end(); it++) {
+    if (it != st.begin()) {
       cout << " ";
     }
-    cout << v[i];
+    cout << *it;
   }
   return 0;
 }
