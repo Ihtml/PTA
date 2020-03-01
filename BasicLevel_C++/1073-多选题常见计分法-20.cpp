@@ -1,80 +1,63 @@
+#include <cmath>
 #include <iostream>
-#include <string>
 #include <vector>
 using namespace std;
-struct que {
-  int val;
-  string ans;
-};
 int main() {
-  int n, m, v, c, t, max = 0;
-  cin >> n >> m;
-  vector<que> ques(m);
-  vector<vector<int> > right(m, vector<int>(5));
+  int n, m, v, t, o, max = 0;
+  scanf("%d%d", &n, &m);
+  vector<int> value(m);
+  vector<int> right(m);
   vector<vector<int> > wrong(m, vector<int>(5));
+  int hash[] = {1, 2, 4, 8, 16};
   for (int i = 0; i < m; i++) {
-    cin >> v >> t >> c;
-    string as;
-    char a;
-    for (int j = 0; j < c; j++) {
-      scanf(" %c", &a);
-      as += a;
-      right[i][a - 'a'] = 1;
+    scanf("%d%d%d", &v, &t, &o);
+    value[i] = v;
+    char c;
+    for (int j = 0; j < o; j++) {
+      scanf(" %c", &c);
+      right[i] += hash[c - 'a'];
     }
-    ques[i].val = v;
-    ques[i].ans = as;
   }
-  string s;
   for (int i = 0; i < n; i++) {
-    float sum = 0;
     getchar();
+    float tot = 0;
     for (int j = 0; j < m; j++) {
-      int res[5]={0};
       if (j != 0) {
         scanf(" ");
       }
+      int t, ans = 0;
       char c;
-      int n;
-      string ans;
-      scanf("(%d", &n);
-      for (int k = 0; k < n; k++) {
+      scanf("(%d", &t);
+      for (int k = 0; k < t; k++) {
         scanf(" %c", &c);
-        ans += c;
-        res[c - 'a'] = 1;
+        ans += hash[c - 'a'];
       }
       scanf(")");
-      for (int k = 0; k < 5; k++) {
-          res[k]+=right[j][k];
-        if (res[k] == 1) {
-          wrong[j][k]++;
-          max = wrong[j][k] > max ? wrong[j][k] : max;
+      int res = ans ^ right[j];
+      if (res) {
+        if ((ans | right[j]) == right[j]) {
+          tot += (float)value[j] / 2;
         }
-      }
-      if (ans == ques[j].ans) {
-        sum += ques[j].val;
-      } else {
-        int flag = 1;
-        for (int i = 0; i < ans.length(); i++) {
-          if (ques[j].ans.find(ans[i]) == string::npos) {
-            flag = 0;
-            break;
+        for (int k = 0; k < 5; k++) {
+          if (res & hash[k]) {
+            wrong[j][k]++;
+            max = wrong[j][k] > max ? wrong[j][k] : max;
           }
         }
-        if (flag) {
-          sum += (float)ques[j].val / 2;
-        }
+      } else {
+        tot += value[j];
       }
     }
-    printf("%.1f\n", sum);
+    printf("%.1f\n", tot);
   }
   if (max == 0) {
     printf("Too simple");
-    return 0;
-  }
-  for (int i = 0; i < m; i++) {
-    for (int j = 0; j < 5; j++) {
-      if (wrong[i][j] == max) {
-        printf("%d %d-%c\n", max, i + 1, 'a' + j);
+  } else {
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < 5; j++) {
+        if (wrong[i][j] == max) {
+          printf("%d %d-%c\n", max, i + 1, 'a' + j);
+        }
       }
     }
   }
