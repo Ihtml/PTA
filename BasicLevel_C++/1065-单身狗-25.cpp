@@ -1,11 +1,10 @@
-#include <algorithm>
 #include <iostream>
+#include <set>
 #include <vector>
 using namespace std;
 int main() {
-  int n, m, a, b, ctn = 0;
-  int two[100000] = {0};
-  int one[100000] = {0};
+  int n, m, a, b;
+  vector<int> two(100000), isExist(100000);
   scanf("%d", &n);
   for (int i = 0; i < n; i++) {
     scanf("%d%d", &a, &b);
@@ -13,27 +12,20 @@ int main() {
     two[b] = a;
   }
   scanf("%d", &m);
-  vector<int> v;
+  vector<int> guest(m);
   for (int i = 0; i < m; i++) {
-    scanf("%d", &a);
-    one[a] = 1;
+    scanf("%d", &guest[i]);
+    isExist[two[guest[i]]] = 1;
   }
-  for (int i = 0; i < 100000; i++) {
-    if (one[i]) {
-      int t = two[i];
-      if (!one[t]) {
-        ctn++;
-        v.push_back(i);
-      }
-    }
+  set<int> st;
+  for (int i = 0; i < m; i++) {
+    if (!isExist[guest[i]])
+      st.insert(guest[i]);
   }
-  sort(v.begin(), v.end());
-  printf("%d\n", ctn);
-  for (int i = 0; i < v.size(); i++) {
-    if (i != 0) {
-      printf(" ");
-    }
-    printf("%d", v[i]);
+  printf("%d\n", st.size());
+  for (auto it = st.begin(); it != st.end(); it++) {
+    if (it != st.begin()) printf(" ");
+    printf("%05d", *it);
   }
   return 0;
 }
