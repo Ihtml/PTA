@@ -11,43 +11,48 @@ bool cmp(obj a, obj b) {
   return a.g != b.g ? a.g > b.g : a.name < b.name;
 }
 int main() {
-  int p, m, n, t;
+  int p, m, n, t, ctn = 1;
   string name;
-  map<string, obj> mp;
+  map<string, int> mp;
   cin >> p >> m >> n;
+  vector<obj> v, res;
   for (int i = 0; i < p; i++) {
     cin >> name >> t;
     if (t >= 200) {
-      mp[name].p = t;
-      mp[name].name = name;
-      mp[name].mid = -1;
+      obj o;
+      o.name = name;
+      o.p = t;
+      o.mid = -1;
+      o.final = -1;
+      o.g = 0;
+      v.push_back(o);
+      mp[name] = ctn;
+      ctn++;
     }
   }
   for (int i = 0; i < m; i++) {
     cin >> name >> t;
-    mp[name].mid = t;
-    mp[name].name = name;
+    if (mp[name]) {
+      v[mp[name] - 1].mid = t;
+    }
   }
   for (int i = 0; i < n; i++) {
     cin >> name >> t;
-    mp[name].final = t;
-    mp[name].name = name;
-  }
-  vector<obj> v;
-  for (auto it = mp.begin(); it != mp.end(); it++) {
-    string name = it->first;
-    if (mp[name].p) {
-      mp[name].g = mp[name].mid > mp[name].final
-                       ? (mp[name].mid * 4 + mp[name].final * 6 + 5) / 10
-                       : mp[name].final;
-      if (mp[name].g >= 60)
-        v.push_back(mp[name]);
+    if (mp[name]) {
+      v[mp[name] - 1].final = t;
     }
   }
-  sort(v.begin(), v.end(), cmp);
   for (int i = 0; i < v.size(); i++) {
-    printf("%s %d %d %d %d\n", v[i].name.c_str(), v[i].p, v[i].mid, v[i].final,
-           v[i].g);
+    v[i].g = v[i].mid > v[i].final
+                 ? int(v[i].mid * 0.4 + v[i].final * 0.6 + 0.5)
+                 : v[i].final;
+    if (v[i].g >= 60)
+      res.push_back(v[i]);
+  }
+  sort(res.begin(), res.end(), cmp);
+  for (int i = 0; i < res.size(); i++) {
+    printf("%s %d %d %d %d\n", res[i].name.c_str(), res[i].p, res[i].mid,
+           res[i].final, res[i].g);
   }
   return 0;
 }
