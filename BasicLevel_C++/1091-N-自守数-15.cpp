@@ -1,23 +1,23 @@
 #include <iostream>
-#include <cmath>
+#include <string>
 using namespace std;
 int main() {
   int n;
   cin >> n;
-  for (int i = 0; i < n; i++) {
-    string k;
+  while (n--) {
+    int k, sum, flag = 1;
     cin >> k;
-    int len = k.length(), t = stoi(k), flag = 0;
     for (int j = 1; j < 10; j++) {
-      int sum = t * t * j;
-      int d = pow(10, len);
-      if ((sum % d) == t) {
-        flag = 1;
-        cout << j << " " << sum << endl;
+      sum = k * k * j;
+      string mul = to_string(sum), sk = to_string(k);
+      string end = mul.substr(mul.length() - sk.length());
+      if (sk == end) {
+        flag = 0;
+        cout << j << " " << mul << endl;
         break;
       }
     }
-    if (!flag) cout << "No" << endl;
+    if (flag) cout << "No" << endl;
   }
   return 0;
 }
