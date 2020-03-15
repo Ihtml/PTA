@@ -1,35 +1,31 @@
 #include <iostream>
-#include <map>
 using namespace std;
 int main() {
-  map<int, double> a, b, c;
-  double n;
-  int k, e, ctn=0;
-  for (int i = 0; i < 2; i++) {
-    cin >> k;
-    for (int j = 0; j < k; j++) {
-      cin >> e >> n;
-      if (i == 0) {
-        a[e] += n;
-      } else {
-        b[e] += n;
+  double n, a[1001] = {0.0}, ans[2001] = {0.0};
+  int k1, k2, e, ctn = 0;
+  scanf("%d", &k1);
+  for (int i = 0; i < k1; i++) {
+    scanf("%d %lf", &e, &n);
+    a[e] += n;
+  }
+  scanf("%d", &k2);
+  for (int i = 0; i < k2; i++) {
+    scanf("%d %lf", &e, &n);
+    for (int j = 0; j <= 1000; j++) {
+      if (a[j] != 0.0) {
+        ans[j + e] += n * a[j];
       }
     }
   }
-  for (auto i = a.begin(); i != a.end(); i++) {
-    for (auto j = b.begin(); j != b.end(); j++) {
-      c[(i->first) + (j->first)] += (i->second) * (j->second);
-    }
-  }
-  for (int i = 2000; i >= 0; i--) {
-    if (c[i] != 0) {
+  for (int i = 0; i <= 2000; i++) {
+    if (ans[i] != 0.0) {
       ctn++;
     }
   }
-  cout << ctn;
+  printf("%d", ctn);
   for (int i = 2000; i >= 0; i--) {
-    if (c[i] != 0) {
-      printf(" %d %.1f", i, c[i]);
+    if (ans[i] != 0.0) {
+      printf(" %d %.1f", i, ans[i]);
     }
   }
   return 0;
