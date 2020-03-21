@@ -19,14 +19,14 @@ int main() {
       break;
     }
     string flag = "No";
-    scanf("%d", &d);
+    cin >> d;
     if (isPrime(n)) {
       string s;
       while (n != 0) {
         s += to_string(n % d);
         n = n / d;
       }
-      int t = stoi(s);
+      int t = atoi(s.c_str());
       if (d != 10) {
         t = 0;
         int len = s.length();
