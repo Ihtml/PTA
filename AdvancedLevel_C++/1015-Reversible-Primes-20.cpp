@@ -2,41 +2,28 @@
 #include <iostream>
 using namespace std;
 bool isPrime(int a) {
-  if (a < 2) {
-    return false;
-  }
+  if (a < 2) return false;
   for (int i = 2; i * i <= a; i++) {
-    if (a % i == 0) {
-      return false;
-    }
+    if (a % i == 0) return false;
   }
   return true;
 }
 int main() {
   int n, d;
   while (scanf("%d", &n) != EOF) {
-    if (n < 0) {
-      break;
-    }
+    if (n < 0) break;
     string flag = "No";
     cin >> d;
     if (isPrime(n)) {
-      string s;
-      while (n != 0) {
-        s += to_string(n % d);
+      int len=0, arr[100];
+      do{
+        arr[len++] = n % d;
         n = n / d;
+      } while (n != 0); 
+      for (int i = 0; i < len; i++){
+        n = n*d + arr[i];
       }
-      int t = atoi(s.c_str());
-      if (d != 10) {
-        t = 0;
-        int len = s.length();
-        for (int i = 0; i <= len-1; i++) {
-          t += (s[i] - '0') * pow((double)d, len - i - 1);
-        }
-      }
-      if (isPrime(t)) {
-        flag = "Yes";
-      }
+      if (isPrime(n)) flag = "Yes";
     }
     cout << flag << endl;
   }
