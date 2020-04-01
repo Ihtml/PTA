@@ -1,17 +1,12 @@
-#include <iostream>
+#include <cstdio>
 using namespace std;
 int main() {
-  int n, i = 0, arr[3];
-  char c[6];
-  scanf("%d%d%d", &arr[0], &arr[1], &arr[2]);
+  char c[] = {"0123456789ABC"};
   for (int i = 0; i < 3; i++) {
-    n = arr[i];
-    c[i * 2] = n / 13 > 9 ? 'A' + n / 13 - 10 : n / 13 + '0';
-    c[i * 2 + 1] = n % 13 > 9 ? 'A' + n % 13 - 10 : n % 13 + '0';
-  }
-  cout << "#";
-  for (int i = 0; i < 6; i++) {
-    cout << c[i];
+    int n;
+    scanf("%d", &n);
+    if (i == 0) printf("#");
+    printf("%c%c", c[n / 13], c[n % 13]);
   }
   return 0;
 }
