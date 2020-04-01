@@ -1,44 +1,25 @@
 #include <algorithm>
 #include <iostream>
 using namespace std;
-bool judge(string a) {
-  int len = a.length();
-  for (int i = 0; i < len / 2; i++) {
-    if (a[i] != a[len - 1 - i]) {
-      return false;
-    }
-  }
-  return true;
-}
-string sum(string a) {
-  string b = a;
-  reverse(b.begin(), b.end());
-  int len = a.length(), carry = 0;
+string s;
+void sum(string t) {
+  int carry = 0, len = s.length();
   for (int i = len - 1; i >= 0; i--) {
-    int t = a[i] - '0' + b[i] - '0' + carry;
-    a[i] = (t % 10) + '0';
-    carry = (t / 10);
+    int temp = s[i] - '0' + t[i] - '0' + carry;
+    s[i] = temp % 10 + '0';
+    carry = temp / 10;
   }
-  if (carry) {
-    a = '1' + a;
-  }
-  return a;
+  if (carry) s = '1' + s;
 }
 int main() {
-  int k, flag = 0;
-  string n;
-  cin >> n >> k;
-  for (int i = 0; i < k; i++) {
-    if (judge(n)) {
-      cout << n << endl << i;
-      flag = 1;
-      break;
-    } else {
-      n = sum(n);
-    }
+  int k, i;
+  cin >> s >> k;
+  for (i = 0; i <= k; i++) {
+    string t = s;
+    reverse(t.begin(), t.end());
+    if (s == t || i == k) break;
+    sum(t);
   }
-  if (!flag) {
-    cout << n << endl << k;
-  }
+  cout << s << endl << i;
   return 0;
 }
