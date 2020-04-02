@@ -1,44 +1,34 @@
 #include <algorithm>
+#include <cstring>
 #include <iostream>
-#include <vector>
 using namespace std;
 struct stu {
-  string id;
-  string name;
-  int grade;
-};
-bool cmp1(stu a, stu b) {
-  return a.id < b.id;
-}
-bool cmp2(stu a, stu b) {
-  return a.name == b.name ? a.id < b.id : a.name < b.name;
-}
-bool cmp3(stu a, stu b) {
-  return a.grade == b.grade ? a.id < b.id : a.grade < b.grade;
+  char name[9];
+  int id, grade;
+} arr[100001];
+int c;
+bool cmp(stu a, stu b) {
+  if (c == 1) {
+    return a.id < b.id;
+  } else if (c == 2) {
+    if (a.name == b.name)
+      return a.id < b.id;
+    return strcmp(a.name, b.name) <= 0;
+  } else {
+    if (a.grade == b.grade)
+      return a.id < b.id;
+    return a.grade < b.grade;
+  }
 }
 int main() {
-  int n, c;
+  int n;
   scanf("%d%d", &n, &c);
-  vector<stu> arr;
   for (int i = 0; i < n; i++) {
-    stu a;
-    string id, name;
-    int grade;
-    cin >> id >> name >> grade;
-    a.id = id;
-    a.name = name;
-    a.grade = grade;
-    arr.push_back(a);
+    scanf("%d %s %d", &arr[i].id, arr[i].name, &arr[i].grade);
   }
-  if (c == 1) {
-    sort(arr.begin(), arr.end(), cmp1);
-  } else if (c == 2) {
-    sort(arr.begin(), arr.end(), cmp2);
-  } else {
-    sort(arr.begin(), arr.end(), cmp3);
-  }
+  sort(arr, arr + n, cmp);
   for (int i = 0; i < n; i++) {
-    printf("%s %s %d\n", arr[i].id.c_str(), arr[i].name.c_str(), arr[i].grade);
+    printf("%06d %s %d\n", arr[i].id, arr[i].name, arr[i].grade);
   }
   return 0;
 }
