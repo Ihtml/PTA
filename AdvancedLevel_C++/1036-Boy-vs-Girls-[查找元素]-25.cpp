@@ -1,40 +1,33 @@
 #include <iostream>
 using namespace std;
 int main() {
-  int n, isM = 0, isF = 0, max = -1, min = 101, diff, score;
-  string name, gender, mname, fname, id, mid, fid;
+  int n, max = -1, min = 101, score;
+  string name, sex, male, female, id;
   cin >> n;
   for (int i = 0; i < n; i++) {
-    cin >> name >> gender >> id >> score;
-    if (gender == "M") {
-      isM = 1;
-      if (score < min) {
-        min = score;
-        mname = name;
-        mid = id;
-      }
-    } else if (gender == "F") {
-      isF = 1;
-      if (score > max) {
-        max = score;
-        fname = name;
-        fid = id;
-      }
+    cin >> name >> sex >> id >> score;
+    if (sex == "M" && score < min) {
+      min = score;
+      male = name + " " + id;
+    }
+    if (sex == "F" && score > max) {
+      max = score;
+      female = name + " " + id;
     }
   }
-  if (isF) {
-    cout << fname << " " << fid;
-  } else {
+  if (max == -1) {
     cout << "Absent";
+  } else {
+    cout << female;
   }
   cout << endl;
-  if (isM) {
-    cout << mname << " " << mid;
-  } else {
+  if (min == 101) {
     cout << "Absent";
+  } else {
+    cout << male;
   }
   cout << endl;
-  if (isF && isM) {
+  if (max != -1 && min != 101) {
     cout << max - min;
   } else {
     cout << "NA";
