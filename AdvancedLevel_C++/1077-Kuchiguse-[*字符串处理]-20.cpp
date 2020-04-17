@@ -1,40 +1,30 @@
-#include <cctype>
-#include <cstring>
+#include <algorithm>
 #include <iostream>
-#include <map>
 using namespace std;
 int main() {
-  int n, ctn = 0;
-  cin >> n;
-  getchar();
-  map<string, int> mp;
+  int n;
+  scanf("%d\n", &n);
+  string s, res;
   for (int i = 0; i < n; i++) {
-    string s, su = "";
     getline(cin, s);
-    for (int j = s.length() - 1; j >= 0; j--) {
-      if ((j < s.length() - 1) && !isalpha(s[j])) {
-        if (s[j] == ' ') {
-          mp[su]++;
-          ctn = mp[su] > ctn ? mp[su] : ctn;
+    reverse(s.begin(), s.end());
+    if (i == 0) {
+      res = s;
+    } else {
+      int len = min(s.length(), res.length());
+      for (int i = 0; i < len; i++) {
+        if (s[i] != res[i]) {
+          res = res.substr(0, i);
+          break;
         }
-        break;
       }
-      if (j == 0) {
-        mp[su]++;
-        ctn = mp[su] > ctn ? mp[su] : ctn;
-      }
-      su = s[j] + su;
     }
   }
-  if (ctn <= 1) {
+  if (res.length() == 0) {
     printf("nai");
   } else {
-    for (auto it = mp.begin(); it != mp.end(); it++) {
-      if (it->second == ctn) {
-        printf("%s", it->first.c_str());
-        break;
-      }
-    }
+    reverse(res.begin(), res.end());
+    printf("%s", res.c_str());
   }
   return 0;
 }
