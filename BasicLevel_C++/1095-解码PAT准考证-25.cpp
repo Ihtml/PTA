@@ -7,10 +7,10 @@ struct obj {
   string id, lev, room, date;
   int score;
 };
-bool cmp1(obj a, obj b) {
+bool cmp1(const obj &a,const obj &b) {
   return a.score != b.score ? a.score > b.score : a.id < b.id;
 }
-bool cmp3(obj a, obj b) {
+bool cmp3(const obj &a,const obj &b) {
   return a.score != b.score ? a.score > b.score : a.room < b.room;
 }
 int main() {
